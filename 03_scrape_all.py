@@ -40,7 +40,7 @@ from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
 URL = "http://www.mineduc.gob.gt/BUSCAESTABLECIMIENTO_GE/"
-OUT_DIR = Path(__file__).resolve().parent.parent / "data" / "crudo"
+OUT_DIR = Path(__file__).resolve().parent / "data" / "crudo"
 
 SEL_DEPARTAMENTO = "#_ctl0_ContentPlaceHolder1_cmbDepartamento"
 SEL_CONSULTAR = "#_ctl0_ContentPlaceHolder1_IbtnConsultar"
@@ -106,7 +106,7 @@ def scrapear_departamento(page, value, texto):
 
 
 def main():
-    OUT_DIR.mkdir(exist_ok=True)
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
