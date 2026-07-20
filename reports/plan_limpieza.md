@@ -87,15 +87,21 @@ municipio real.
 
 **Regla:** al aplicar la unificacion de CIUDAD CAPITAL -> GUATEMALA (ver
 DEPARTAMENTO), reemplazar esas 7,594 filas con `MUNICIPIO = GUATEMALA`. La
-zona (1-25) no se descarta silenciosamente: se conserva como referencia
-dentro de DIRECCION, que ya suele incluir "ZONA N" en el texto libre.
+zona (1-25) no se descarta: se verifico que solo el 16% de esas filas
+menciona "ZONA" dentro de DIRECCION, asi que no es seguro depender de ese
+texto libre. En su lugar se agrega una columna nueva `ZONA` (numero de zona,
+solo poblada para las filas que antes eran Ciudad Capital, NaN para el
+resto) extraida directamente del valor original de MUNICIPIO antes de
+sobreescribirlo.
 
 **Por que funcionara:** el dataset queda con municipios reales y
-consistentes con el resto del pais (ya no hay una categoria "ZONA N" que no
-es un municipio).
+consistentes con el resto del pais, sin perder la informacion de zona
+capitalina (se verifico que la extraccion captura el 100% de los casos,
+0 zonas sin capturar).
 
-**Riesgos:** se pierde granularidad para quien quisiera analizar por zona
-capitalina especificamente sin tener que parsear DIRECCION.
+**Riesgos:** minimo. `ZONA` es una columna nueva que no existia en el
+formulario original del sitio, hay que documentarla claramente en el libro
+de codigos para que no se confunda con una variable oficial de MINEDUC.
 
 ---
 
