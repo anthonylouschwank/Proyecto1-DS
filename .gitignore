@@ -1,2 +1,4 @@
 data/
 mineduc_form_raw.html
+.venv/
+.ipynb_checkpoints/
