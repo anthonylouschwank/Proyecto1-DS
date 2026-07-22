@@ -47,7 +47,6 @@ Los scripts/notebooks están numerados y se corren en orden desde la raíz del r
 | `03_scrape_all.py` | **Scraper real.** Recorre los 23 valores del dropdown de departamento (22 departamentos + Ciudad Capital) y guarda un CSV crudo por cada uno en `data/crudo/`. Tarda varios minutos. |
 | `04_diagnostico.py` | Une los 23 CSV crudos, calcula el diagnóstico del estado de los datos (registros, tipos, faltantes, únicos, duplicados, fuera de dominio, formatos, problemas de calidad) e imprime el resultado en `reports/diagnostico_datos_crudos.md`. No modifica los datos. |
 | `05_limpieza.ipynb` | **Notebook de limpieza.** Aplica cada regla de `reports/plan_limpieza.md` (con su justificación y riesgos documentados en celdas markdown), une los 23 departamentos y exporta el dataset final a `data/limpio/establecimientos_educativos_limpio.csv`. |
-| `06_libro_codigos.py` | Lee el CSV limpio y genera `reports/libro_codigos.pdf`: descripción general del dataset + descripción, tipo, % de faltantes, valores únicos y tabla de frecuencias por cada variable. |
 
 Para correr todo desde cero (con el venv activado):
 
@@ -55,7 +54,6 @@ Para correr todo desde cero (con el venv activado):
 python 03_scrape_all.py
 python 04_diagnostico.py
 jupyter notebook 05_limpieza.ipynb   # abrir y correr todas las celdas
-python 06_libro_codigos.py
 ```
 
 También se puede ejecutar el notebook completo sin abrir la interfaz:
@@ -83,4 +81,3 @@ instalación de arriba.
 
 - [`reports/diagnostico_datos_crudos.md`](reports/diagnostico_datos_crudos.md) — diagnóstico del estado inicial de los datos crudos.
 - [`reports/plan_limpieza.md`](reports/plan_limpieza.md) — plan de limpieza variable por variable (problemas, reglas, justificación, riesgos).
-- [`reports/libro_codigos.pdf`](reports/libro_codigos.pdf) — libro de códigos del dataset limpio (generado por `06_libro_codigos.py`, versionado en git).
