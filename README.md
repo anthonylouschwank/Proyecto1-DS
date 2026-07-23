@@ -19,34 +19,41 @@ pip install --upgrade pip
 pip install playwright beautifulsoup4 requests pandas tabulate notebook ipykernel reportlab
 python -m playwright install chromium
 
+# Para una instalación limpia en Linux
+python -m playwright install --with-deps chromium
+
 # registrar el entorno como kernel de Jupyter
 python -m ipykernel install --user --name proyecto1-ds --display-name "Python (Proyecto1-DS)"
 ```
 
 - `playwright` (+ `chromium`) es obligatorio para el scraping real: el sitio
-  esta detras de Incapsula y bloquea peticiones `requests` crudas, solo
-  funciona con un navegador real.
+esta detras de Incapsula y bloquea peticiones `requests` crudas, solo
+funciona con un navegador real.
 - `tabulate` es necesario para que `pandas.to_markdown()` funcione en el
-  script de diagnóstico.
+script de diagnóstico.
 - `notebook` + `ipykernel` son necesarios para abrir/correr `05_limpieza.ipynb`.
 - `reportlab` es necesario para generar el libro de códigos en PDF
-  (`06_libro_codigos.py`).
+(`06_libro_codigos.py`).
 - Sin activar el venv, se puede invocar todo con la ruta directa al
-  ejecutable: `.venv\Scripts\python.exe archivo.py` (Windows) o
-  `.venv/bin/python archivo.py` (Linux/Mac).
+ejecutable: `.venv\Scripts\python.exe archivo.py` (Windows) o
+`.venv/bin/python archivo.py` (Linux/Mac).
+
+
 
 ## Orden de ejecución
 
 Los scripts/notebooks están numerados y se corren en orden desde la raíz del repo:
 
-| Archivo | Qué hace |
-|---|---|
-| `00_discover_form.py` | Reconocimiento del formulario (GET simple, sin scraping real). Solo para inspección manual. |
-| `01_test_search.py` | Prueba de postback con `requests` (queda documentado que falla por Incapsula). |
-| `02_explore_playwright.py` | Prueba de un departamento con Playwright, para confirmar que el cascade Departamento→Municipio funciona en navegador real. |
-| `03_scrape_all.py` | **Scraper real.** Recorre los 23 valores del dropdown de departamento (22 departamentos + Ciudad Capital) y guarda un CSV crudo por cada uno en `data/crudo/`. Tarda varios minutos. |
-| `04_diagnostico.py` | Une los 23 CSV crudos, calcula el diagnóstico del estado de los datos (registros, tipos, faltantes, únicos, duplicados, fuera de dominio, formatos, problemas de calidad) e imprime el resultado en `reports/diagnostico_datos_crudos.md`. No modifica los datos. |
-| `05_limpieza.ipynb` | **Notebook de limpieza.** Aplica cada regla de `reports/plan_limpieza.md` (con su justificación y riesgos documentados en celdas markdown), une los 23 departamentos y exporta el dataset final a `data/limpio/establecimientos_educativos_limpio.csv`. |
+
+| Archivo                    | Qué hace                                                                                                                                                                                                                                                          |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `00_discover_form.py`      | Reconocimiento del formulario (GET simple, sin scraping real). Solo para inspección manual.                                                                                                                                                                       |
+| `01_test_search.py`        | Prueba de postback con `requests` (queda documentado que falla por Incapsula).                                                                                                                                                                                    |
+| `02_explore_playwright.py` | Prueba de un departamento con Playwright, para confirmar que el cascade Departamento→Municipio funciona en navegador real.                                                                                                                                        |
+| `03_scrape_all.py`         | **Scraper real.** Recorre los 23 valores del dropdown de departamento (22 departamentos + Ciudad Capital) y guarda un CSV crudo por cada uno en `data/crudo/`. Tarda varios minutos.                                                                              |
+| `04_diagnostico.py`        | Une los 23 CSV crudos, calcula el diagnóstico del estado de los datos (registros, tipos, faltantes, únicos, duplicados, fuera de dominio, formatos, problemas de calidad) e imprime el resultado en `reports/diagnostico_datos_crudos.md`. No modifica los datos. |
+| `05_limpieza.ipynb`        | **Notebook de limpieza.** Aplica cada regla de `reports/plan_limpieza.md` (con su justificación y riesgos documentados en celdas markdown), une los 23 departamentos y exporta el dataset final a `data/limpio/establecimientos_educativos_limpio.csv`.           |
+
 
 Para correr todo desde cero (con el venv activado):
 
@@ -79,5 +86,6 @@ instalación de arriba.
 
 ## Documentos de análisis
 
-- [`reports/diagnostico_datos_crudos.md`](reports/diagnostico_datos_crudos.md) — diagnóstico del estado inicial de los datos crudos.
-- [`reports/plan_limpieza.md`](reports/plan_limpieza.md) — plan de limpieza variable por variable (problemas, reglas, justificación, riesgos).
+- `[reports/diagnostico_datos_crudos.md](reports/diagnostico_datos_crudos.md)` — diagnóstico del estado inicial de los datos crudos.
+- `[reports/plan_limpieza.md](reports/plan_limpieza.md)` — plan de limpieza variable por variable (problemas, reglas, justificación, riesgos).
+
